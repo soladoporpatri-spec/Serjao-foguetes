@@ -376,7 +376,7 @@ button { color: inherit; }
 .pontos-proposito p { margin: 0; color: var(--muted); font-size: 14px; }
 
 /* formulario */
-.contato { display: grid; grid-template-columns: .92fr 1.08fr; gap: clamp(60px, 10vw, 140px); background: #0e1931; }
+.contato { display: grid; grid-template-columns: .92fr 1.08fr; gap: clamp(60px, 10vw, 140px); overflow: clip; background: #0e1931; }
 .texto-contato p:not(.rotulo-secao) { max-width: 520px; color: var(--muted); }
 .nota-contato { display: flex; align-items: flex-start; gap: 12px; max-width: 460px; margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted-light); font-size: 12px; }
 .nota-contato i { flex: 0 0 auto; color: var(--blue); font-size: 22px; }
@@ -409,6 +409,28 @@ button { color: inherit; }
 /* aqui é a animação */
 .revelar { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
 .revelar.esta-visivel { opacity: 1; transform: translateY(0); }
+
+/* entrada lateral da seção de contato */
+.contato .texto-contato.revelar {
+    transform: translate3d(clamp(-96px, -8vw, -52px), 0, 0);
+    transition-duration: .95s;
+    transition-timing-function: cubic-bezier(.22, 1, .36, 1);
+    will-change: opacity, transform;
+}
+
+.contato .formulario-contato.revelar {
+    transform: translate3d(clamp(52px, 8vw, 96px), 0, 0);
+    transition-duration: 1.05s;
+    transition-delay: .08s;
+    transition-timing-function: cubic-bezier(.22, 1, .36, 1);
+    will-change: opacity, transform;
+}
+
+.contato .texto-contato.revelar.esta-visivel,
+.contato .formulario-contato.revelar.esta-visivel {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
 
 @media (max-width: 1000px) {
     .navegacao-desktop, .botao-cabecalho { display: none; }
@@ -465,6 +487,10 @@ button { color: inherit; }
     .proposito { gap: 58px; }
     .numero-arvores strong { font-size: 80px; }
     .contato { gap: 48px; }
+    .contato .texto-contato.revelar { transform: translate3d(-42px, 0, 0); }
+    .contato .formulario-contato.revelar { transform: translate3d(42px, 0, 0); transition-delay: 0s; }
+    .contato .texto-contato.revelar.esta-visivel,
+    .contato .formulario-contato.revelar.esta-visivel { transform: translate3d(0, 0, 0); }
     .formulario-contato { grid-template-columns: 1fr; padding: 24px 20px; }
     .campo-plano, .enviar-formulario { grid-column: 1; }
     .rodape-site { grid-template-columns: 1fr; gap: 30px; padding-top: 58px; padding-bottom: 72px; }
@@ -485,4 +511,6 @@ button { color: inherit; }
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     .revelar { opacity: 1; transform: none; }
+    .contato .texto-contato.revelar,
+    .contato .formulario-contato.revelar { opacity: 1; transform: none; transition-delay: 0s; }
 }
